@@ -12,7 +12,24 @@ public class Comment {
 
     @Column(name = "contenu")
     private String content;
+    /*
+    Cette annotation se rapproche du @OneToMany, dans la mesure où on lui associe également un @JoinColumn.
+    La valeur de la propriété name du @JoinColumn est la clé étrangère dans la table Comment, en l'occurrence produit_id.
+     */
+    //Implémente la bidirectionnalité ManyToOne/OneToMany
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "produit_id")
+    private Product product;
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public int getCommentId() {
         return commentId;

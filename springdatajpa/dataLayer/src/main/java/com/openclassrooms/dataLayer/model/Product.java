@@ -21,40 +21,24 @@ public class Product {
     @Column(name = "cout")
     private int cost;
     /*
-    La propriété ‘cascade’ permet de définir quel impact l’action sur une entité aura sur son entité associée.
-    Le type ‘ALL’ signifie que toutes les actions sur l’entité Produit seront propagées sur l’entité Commentaires.
-    Exemple : si on supprime le produit, les commentaires associés seront également supprimés.
-     */
-    /*
-    La propriété orphanRemoval=true permet d’activer un mécanisme qui garantit la non-existence de commentaire orphelin de son produit.
-    Si on supprime un commentaire de la liste des commentaires du Product, alors le commentaire devient orphelin, et il est supprimé de la base de données.
-     */
-    /*
-    La propriété fetch possède la valeur EAGER, et cela signifie qu’à la récupération du produit, tous les commentaires seront également récupérés.
-     */
-    /*
-    @JoinColumn : Cette annotation permet d’indiquer le nom de la clé étrangère dans la table de l’entité concernée.
+    Une relation bidirectionnelle :
+    1.	L’annotation @JoinColumn sur l’attribut comments a été enlevée.
+    2.	La propriété mappedBy = “product” dans l’annotation @OneToMany a été ajoutée.
+    3.	Le fetch = FetchType.EAGER a également été enlevé. Je laisse la valeur par défaut LAZY.
+        Comme pour la relation bidirectionnelle en ManyToMany, le mappedBy permet de faire référence à l’attribut dans la seconde entité.
+
      */
     @OneToMany(
+            mappedBy = "product",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER
+            orphanRemoval = true
     )
-    @JoinColumn(name = "produit_id")
-
     private List<Comment> comments = new ArrayList<>();
 
+    //Créé une liste de catégories
     @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "categorie_produit",
-            joinColumns = @JoinColumn(name = "produit_id"),
-            inverseJoinColumns = @JoinColumn(name = "categorie_id")
+            mappedBy = "products",
+            cascade =CascadeType.ALL
     )
     private List<Category> categories = new ArrayList<>();
 
@@ -126,4 +110,16 @@ public class Product {
     inverseJoinColumns correspond à la clé étrangère dans la table de jointure de la seconde entité concernée par la relation.
      */
 
+    /*
+    Une bonne pratique dans le contexte des relations bidirectionnelles est d’ajouter des méthodes utilitaires (dites helpers methods, en anglais) pour aider à la synchronisation de nos objets.
+    Au sein de la classe Product
+     */
+    public void addComment(Comment comment){
+        comments.add(comment);
+        comment.setProduct(this);
+    }
+    public void removeComment(Comment comment){
+        comments.remove(comment);
+        comment.setProduct(null);
+    }
 }
