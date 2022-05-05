@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.swing.text.html.Option;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -30,18 +31,32 @@ public class DataLayerApplication implements CommandLineRunner {
 	}
 
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 		Iterable<Product> products = productService.getProducts();
 		products.forEach(product -> System.out.println(product.getName()));
+		System.out.println("*************deux loops pour afficher tous commentaires***********************");
+		for (Product product :products){
+			for (Comment comment : product.getComments()){
+				System.out.println(comment.getContent());
+			}
+		}
 		System.out.println("***********************************************");
 		Optional<Product> optProduct = productService.getProductById(1);
 		System.out.println(optProduct.get().getName());
+		optProduct.get().getComments().forEach(comment -> System.out.println(comment.getContent()));
+
+		System.out.println("*****************************************************");
+		optProduct.get().getComments().forEach(comment -> System.out.println(comment.getContent()));
+
 		System.out.println("**************************************************");
 		Iterable<Category> categories = categoryService.getCategorys();
 		categories.forEach(categorie -> System.out.println(categorie.getName()));
-		System.out.println("******************************************************");
+		System.out.println("***************Catégorie et Produit ************************************");
 		Optional<Category> optCategory = categoryService.getCategoryById(1);
-		System.out.println(optCategory.get().getName());
+		Category categoryId = optCategory.get();
+		System.out.println(categoryId.getName());
+		categoryId.getProducts().forEach(product -> System.out.println(product.getName()));
 		System.out.println("*****************************************************");
 		Iterable<Comment> comments = commentService.getComments();
 		comments.forEach(comment -> System.out.println(comment.getContent()));
