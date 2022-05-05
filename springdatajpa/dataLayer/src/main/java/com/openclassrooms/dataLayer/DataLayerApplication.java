@@ -43,9 +43,11 @@ public class DataLayerApplication implements CommandLineRunner {
 		}
 		System.out.println("***********************************************");
 		Optional<Product> optProduct = productService.getProductById(1);
-		System.out.println(optProduct.get().getName());
-		optProduct.get().getComments().forEach(comment -> System.out.println(comment.getContent()));
-
+		Product productId = optProduct.get();
+		System.out.println(productId.getName());
+		productId.getComments().forEach(comment -> System.out.println(comment.getContent()));
+		System.out.println("****************Catégorie-Product : implémenté côté product*********************");
+		productId.getCategories().forEach(category -> System.out.println("["+productId.getName()+"] appartient à cette catégorie : ["+category.getName()+"]."));
 		System.out.println("*****************************************************");
 		optProduct.get().getComments().forEach(comment -> System.out.println(comment.getContent()));
 
@@ -56,7 +58,8 @@ public class DataLayerApplication implements CommandLineRunner {
 		Optional<Category> optCategory = categoryService.getCategoryById(1);
 		Category categoryId = optCategory.get();
 		System.out.println(categoryId.getName());
-		categoryId.getProducts().forEach(product -> System.out.println(product.getName()));
+		//Commenté ci-dessous, parce qu'on implémente @ManyToMany côté Product
+		//categoryId.getProducts().forEach(product -> System.out.println(categoryId.getName() +" comprend ["+product.getName()+"], ce produit"));
 		System.out.println("*****************************************************");
 		Iterable<Comment> comments = commentService.getComments();
 		comments.forEach(comment -> System.out.println(comment.getContent()));

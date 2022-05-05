@@ -19,7 +19,8 @@ public class Category {
         return categoryId;
     }
 
-    @ManyToMany(
+    // Commenté ci-dessous parce qu'on implémente la relation @ManyToMany côté Product
+   /* @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = { CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -30,7 +31,7 @@ public class Category {
             joinColumns = @JoinColumn(name = "categorie_id"),
             inverseJoinColumns = @JoinColumn(name = "produit_id")
     )
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();*/
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
@@ -44,13 +45,13 @@ public class Category {
         this.name = name;
     }
 
-    public List<Product> getProducts() {
+   /* public List<Product> getProducts() {
         return products;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
+    }*/
     /*
     Nous utilisons 2 propriétés de @ManyToMany :
     La propriété fetch possède la valeur LAZY, et cela signifie qu’à la récupération de la catégorie, les produits ne sont pas récupérés.
