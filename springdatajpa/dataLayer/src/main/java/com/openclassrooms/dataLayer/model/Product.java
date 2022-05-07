@@ -1,9 +1,12 @@
 package com.openclassrooms.dataLayer.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+//la requête SQL update exécutera un set uniquement sur les valeurs qui ont changé.
+@DynamicUpdate
 @Entity
 @Table(name = "produit")
 public class Product {
@@ -38,7 +41,10 @@ public class Product {
     //Créé une liste de catégories
     @ManyToMany(
             mappedBy = "products",
-            cascade =CascadeType.ALL
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
     )
     private List<Category> categories = new ArrayList<>();
 

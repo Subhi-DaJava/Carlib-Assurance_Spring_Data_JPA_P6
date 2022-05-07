@@ -20,4 +20,15 @@ public class ProductService {
     public Optional<Product> getProductById(Integer id){
         return productRepository.findById(id);
     }
+
+    public Product addProduct(Product product){
+        return productRepository.save(product);
+    }
+
+    public void deleteProductById(Integer id){
+        productRepository.deleteById(id);
+    }
+   /* public Iterable<Product> getByName(String name){
+        return productRepository.findByName(name);
+    }*/
 }

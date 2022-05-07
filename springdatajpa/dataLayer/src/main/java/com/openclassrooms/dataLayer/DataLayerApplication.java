@@ -11,7 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -92,6 +91,74 @@ public class DataLayerApplication implements CommandLineRunner {
 		Product productIdBiDir = optProductIdBi.get();
 		productIdBiDir.getComments().forEach(comment -> System.out.println("Ce produit ["+productIdBiDir.getName()+"] a ce commentaire ["+comment.getContent()+"]."));
 
+		/*System.out.println("**************************** Méthode save pour Catégorie *******************");
+		System.out.println("Les anciennes Catégories : ");
+		categoryService.getCategorys().forEach(category -> System.out.println(category.getName()));
+		Category newCategory = new Category();
+		newCategory.setName("Promotion");
+		newCategory = categoryService.addCategory(newCategory);
+		System.out.println("Toutes les catégories après avoir rajouté une nouvelle catégorie :");
+		categoryService.getCategorys().forEach(category -> System.out.println(category.getName()));*/
+
+		/*System.out.println("**************** Méthode save pour product *********************");
+		System.out.println("Les anciens Products : ");
+		productService.getProducts().forEach(product -> System.out.println(product.getName()));
+		Product newProduct = new Product();
+		newProduct.setName("AssuranceTierMaxi");
+		newProduct.setCost(1000);
+		newProduct.setDescription("Assurance couvre le dommage matériel et corporel des autres");
+		//On rajoute cette ligne pour créer un lien entre cette newCategory et le newProduct
+		newCategory.addProduct(newProduct);*/
+
+		/*newProduct = productService.addProduct(newProduct);
+		System.out.println("Tous les Produits après avoir rajouté une nouveau produit : ");
+		productService.getProducts().forEach(product -> System.out.println(product.getName()));
+		System.out.println("la relation entre newCategory et newProduct");
+		//Vérifier la relation entre catégorie et le produit bien prise en compte
+		newProduct.getCategories().forEach(category -> System.out.println(category.getName()));*/
+
+		System.out.println("Afficher les commentaires associés au produit (id=5)");
+		Product productId5 = productService.getProductById(5).get();
+		/*Comment newComment = new Comment();*/
+		//newComment.setContent("Il est super pour les jeunes conducteur");
+		/*productId5.addComment(newComment);*/
+		//afficher le commentaire associé avec le produit dont l'id = 5
+		productId5.getComments().forEach(comment -> System.out.println(comment.getContent()));
+
+		System.out.println("*************** Rajouter les objets simultanément *********************");
+		/*Category newCategoryUnder30 = new Category();
+		newCategoryUnder30.setName("Pour les -30 ans");
+		Product newProductUnder30 = new Product();
+		newProductUnder30.setName("Assurance-30");
+		newProductUnder30.setDescription("Assurance pour les moins de 30 ans");
+		newProductUnder30.setCost(600);
+		newCategoryUnder30.addProduct(newProductUnder30);
+		categoryService.addCategory(newCategoryUnder30);
+*/
+		System.out.println("**************** Afficher la catégorie et le product pour ces new objets *********************");
+		/*newCategoryUnder30.getProducts().forEach(product -> System.out.println("Cette newCategoryUnder30 ["+newCategoryUnder30.getName()
+				+"] comprend ce produit ["+product.getName()+"]"));
+		newProductUnder30.getCategories().forEach(category -> System.out.println("Ce produit ["+newProductUnder30.getName()+"] " +
+				"appartient à cette catégorie ["+category.getName()+"]"));
+*/
+		System.out.println("**************** Mettre à jour le nom du product dont id est 10 *******************");
+		/*Product productId10 = productService.getProductById(10).get();
+		productId10.setName("Assurance-25");
+		productService.addProduct(productId10);
+		Product newProductId10 = productService.getProductById(10).get();
+		System.out.println(newProductId10.getName());*/
+
+		System.out.println("***************** Supprimer un Produit et les commentaires associés et uniquement un commentaire**************************");
+		//productService.deleteProductById(9);
+		//Supprimer le commentaire d'Id 7 associé à produit dont Id est 5
+		/*Comment commentId7 = commentService.getCommentById(7).get();
+		Product productId7 = productService.getProductById(5).get();
+		productId7.removeComment(commentId7);
+*/
+		System.out.println("**************** Supprimer le product qui impacte pas la catégorie *******************");
+		//productService.deleteProductById(14);
+		System.out.println("****************** Supprimer la catégorie mais qui ne impacte pas le produit **************************");
+		//categoryService.deleteCategoryById(14);
 
 	}
 }

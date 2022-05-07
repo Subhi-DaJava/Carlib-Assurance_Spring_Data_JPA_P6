@@ -18,4 +18,7 @@ public class CommentService {
     public Optional<Comment> getCommentById(Integer id){
         return commentRepository.findById(id);
     }
+    public void deleteCommentById(Integer id){
+        commentRepository.deleteById(id);
+    }
 }

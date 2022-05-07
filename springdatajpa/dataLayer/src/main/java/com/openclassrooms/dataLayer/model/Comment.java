@@ -18,7 +18,9 @@ public class Comment {
      */
     //Implémente la bidirectionnalité ManyToOne/OneToMany
     @ManyToOne(
-            cascade = CascadeType.ALL
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE}
     )
     @JoinColumn(name = "produit_id")
     private Product product;
