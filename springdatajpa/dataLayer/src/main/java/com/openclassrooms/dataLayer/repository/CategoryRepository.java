@@ -6,4 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepository extends CrudRepository<Category,Integer> {
+    //Requêtes dérivées
+    //par le nom de la catégorie
+    Iterable<Category> findByName(String name);
+    //par le nom d’un produit de la catégorie
+    Iterable<Category> findByProductsName(String name);
 }

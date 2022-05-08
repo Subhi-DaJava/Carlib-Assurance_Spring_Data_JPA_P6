@@ -158,7 +158,55 @@ public class DataLayerApplication implements CommandLineRunner {
 		System.out.println("**************** Supprimer le product qui impacte pas la catégorie *******************");
 		//productService.deleteProductById(14);
 		System.out.println("****************** Supprimer la catégorie mais qui ne impacte pas le produit **************************");
-		//categoryService.deleteCategoryById(14);
+		//categoryService.deleteCategoryById(5);
+
+		System.out.println("********************* Derived Query *******************************");
+		Iterable<Product> productsByName = productService.getProductsByName("AssuranceTousRisques");
+		productsByName.forEach(product -> System.out.println("Cherché par nom de l'assurance : ["+product.getName()+"], dont l'Id est["+product.getProductId()+"]."));
+
+		System.out.println("********************** Associer plusieurs critères *****************************");
+		Iterable<Product> productByNameAndCost = productService.getProductsByNameAndCost("AssuranceTousRisques",1500);
+		productByNameAndCost.forEach(product -> System.out.println("Le produit est ["+product.getName()+"], le cout est ["+product.getCost()+"]"));
+
+		System.out.println("******************* Requêtes dérivées à travers la relation ********************************");
+		Iterable<Product> productsByCategory = productService.getProductsByCategory("Standard");
+		System.out.println("Les produits par catégorie sont : ");
+		productsByCategory.forEach(product -> System.out.println(product.getName()));
+
+		System.out.println("************************** Chercher par le nom de la catégorie ************************************");
+		Iterable<Category> getCategorysByName = categoryService.getCategoryByName("Standard");
+		getCategorysByName.forEach(category -> System.out.println(category.getName()));
+		System.out.println("************************** Chercher par le nom d’un produit de la catégorie ************************************");
+		Iterable<Category> getCategorysByProduct = categoryService.getCategoryByProductName("AssuranceTousRisques");
+		getCategorysByProduct.forEach(category -> System.out.println(category.getName()));
+
+		System.out.println("************************* Rechercher les produits par coût en utilisant Native Query*********************************************");
+		Iterable<Product> getProductByCostNativeQuery = productService.getProductByCoutLessThanNativeQuery(1000);
+		getProductByCostNativeQuery.forEach(product -> System.out.println(product.getName()+"\n"));
+
+
+		/*System.out.println("J'ai oublié d'associer la relation entre AssuranceTierMaxi avec une catégorie");
+		Product productTierMaxi = productService.getProductById(5).get();
+		Category categoryPromotion = categoryService.getCategoryById(4).get();
+		categoryPromotion.addProduct(productTierMaxi);*/
+		System.out.println("Chercher la catégorie pour le produit (AssuranceTierMaxi) ");
+		Iterable<Category> getCategorysPourMaxiTier = categoryService.getCategoryByProductName("AssuranceTierMaxi");
+		getCategorysPourMaxiTier.forEach(category -> System.out.println(category.getName()));
+
+		System.out.println("************************ Chercher les produits par leur coût moins 1000 *******************************");
+		Iterable<Product> getProductsByCoutLessThan = productService.getProductByCoutLessThan(1000);
+		getProductsByCoutLessThan.forEach(product -> System.out.println("Le produit ["+product.getName()+"], le coût : ["+product.getCost()+"]."));
+
+		System.out.println("****************************** Rechercher les commentaires qui comprennent le mot : déçu par requête JPQL ***********************************");
+		Iterable<Comment> getCommentsByContentLike = commentService.getCommentsByContentLike("deçu");
+		getCommentsByContentLike.forEach(comment -> System.out.println(comment.getContent()));
+
+		System.out.println("********************* Rechercher les commentaires avec requête Dérivée ***********************************");
+		//Requêtes dérivées
+		//La recherche des commentaires : dont le contenu contient le mot xxx using "findByContentContaining"
+		Iterable<Comment> getCommentByContentContaining = commentService.getCommentsByContentContaining("deçu");
+		getCommentByContentContaining.forEach(comment -> System.out.println(comment.getContent()));
+
 
 	}
 }

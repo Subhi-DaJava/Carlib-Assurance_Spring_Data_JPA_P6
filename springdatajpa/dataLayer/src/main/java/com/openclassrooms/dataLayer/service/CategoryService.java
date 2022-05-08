@@ -24,4 +24,15 @@ public class CategoryService {
     public void deleteCategoryById(Integer id){
         categoryRepository.deleteById(id);
     }
+
+    //Requêtes dérivées
+    //par le nom de la catégorie
+    public Iterable<Category> getCategoryByName(String name){
+        return categoryRepository.findByName(name);
+    }
+    //par le nom d’un produit de la catégorie
+    public Iterable<Category> getCategoryByProductName(String name){
+        return categoryRepository.findByProductsName(name);
+    }
+
 }

@@ -21,4 +21,15 @@ public class CommentService {
     public void deleteCommentById(Integer id){
         commentRepository.deleteById(id);
     }
+
+    //Requête JPQL
+    public Iterable<Comment> getCommentsByContentLike(String containing){
+        return commentRepository.findByContentLike(containing);
+    }
+    //Requêtes dérivées
+    //La recherche des commentaires : dont le contenu contient le mot xxx using "findByContentContaining"
+    public Iterable<Comment> getCommentsByContentContaining(String containing){
+        return commentRepository.findByContentContaining(containing);
+    }
+
 }

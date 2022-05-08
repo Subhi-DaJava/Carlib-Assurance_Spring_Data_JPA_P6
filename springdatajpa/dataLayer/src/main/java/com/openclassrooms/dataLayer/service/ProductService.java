@@ -28,7 +28,26 @@ public class ProductService {
     public void deleteProductById(Integer id){
         productRepository.deleteById(id);
     }
-   /* public Iterable<Product> getByName(String name){
+    //Derived Query
+    public Iterable<Product> getProductsByName(String name){
         return productRepository.findByName(name);
-    }*/
+    }
+    //Associer plusieurs critères
+    public Iterable<Product> getProductsByNameAndCost(String name, Integer cost){
+        return productRepository.findByNameAndCost(name,cost);
+    }
+    //Les requêtes dérivées à travers la relation
+    public Iterable<Product> getProductsByCategory(String name){
+        return productRepository.findByCategoriesName(name);
+    }
+
+    //Chercher par coût using Derived Queries
+    public Iterable<Product> getProductByCoutLessThan(Integer cout){
+        return productRepository.findByCostLessThan(cout);
+    }
+
+    //Chercher par coût using Natives Queries
+    public Iterable<Product> getProductByCoutLessThanNativeQuery(Integer cout){
+        return productRepository.findByCostNative(cout);
+    }
 }
