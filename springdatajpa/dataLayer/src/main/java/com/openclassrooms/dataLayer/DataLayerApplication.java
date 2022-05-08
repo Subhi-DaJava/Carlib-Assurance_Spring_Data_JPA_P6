@@ -198,14 +198,21 @@ public class DataLayerApplication implements CommandLineRunner {
 		getProductsByCoutLessThan.forEach(product -> System.out.println("Le produit ["+product.getName()+"], le coût : ["+product.getCost()+"]."));
 
 		System.out.println("****************************** Rechercher les commentaires qui comprennent le mot : déçu par requête JPQL ***********************************");
-		Iterable<Comment> getCommentsByContentLike = commentService.getCommentsByContentLike("deçu");
+		Iterable<Comment> getCommentsByContentLike = commentService.getCommentsByContentLike("déçu");
 		getCommentsByContentLike.forEach(comment -> System.out.println(comment.getContent()));
 
 		System.out.println("********************* Rechercher les commentaires avec requête Dérivée ***********************************");
 		//Requêtes dérivées
 		//La recherche des commentaires : dont le contenu contient le mot xxx using "findByContentContaining"
-		Iterable<Comment> getCommentByContentContaining = commentService.getCommentsByContentContaining("deçu");
+		Iterable<Comment> getCommentByContentContaining = commentService.getCommentsByContentContaining("déçu");
 		getCommentByContentContaining.forEach(comment -> System.out.println(comment.getContent()));
+
+		/*System.out.println("******************** Mettre à le commentaire d'Id est 2, déçu est écrit deçu ***********************************");
+		Comment commentId2 = commentService.getCommentById(2).get();
+		commentId2.setContent("Minimum du minimum, un peu déçu");
+		Product productId1 = productService.getProductById(1).get();
+		productId1.addComment(commentId2);*/
+
 
 
 	}
