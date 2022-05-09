@@ -26,3 +26,6 @@
 
 ![product](https://user-images.githubusercontent.com/90509456/167500138-d2c248d0-7583-4240-8c95-31b7329cca92.jpg)
 
+#### Table de liaison : catégorie_produit 
+
+![category_product](https://user-images.githubusercontent.com/90509456/167501866-c0442ef6-8b2f-4ffc-b748-96f990f14ac0.jpg)
