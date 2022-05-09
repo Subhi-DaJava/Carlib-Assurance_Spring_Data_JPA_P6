@@ -17,9 +17,10 @@ public interface ProductRepository extends CrudRepository<Product,Integer> {
      //Chercher les produits par coût (lessThan or gratterThan)
      Iterable<Product> findByCostLessThan(Integer cout);
 
+     //Requête JPQL
      @Query("FROM Product WHERE name = ?1")
      Iterable<Product> findByNameJPQL(String name);
-
+     //Native Query /Les requêtes SQL
      @Query(value = "SELECT * FROM produit WHERE cout <= :cout", nativeQuery = true)
      Iterable<Product> findByCostNative(@Param("cout") Integer cost);
 
