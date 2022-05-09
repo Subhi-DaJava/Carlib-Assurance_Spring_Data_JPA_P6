@@ -18,7 +18,7 @@ public class CategoryService {
     public Optional<Category> getCategoryById(Integer id){
         return categoryRepository.findById(id);
     }
-    public Category addCategory(Category category){
+    public Category saveCategory(Category category){
        return categoryRepository.save(category);
     }
     public void deleteCategoryById(Integer id){

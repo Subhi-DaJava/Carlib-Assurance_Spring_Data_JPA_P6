@@ -1,8 +1,12 @@
 package com.openclassrooms.dataLayer.model;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 @Entity
+//la requête SQL update exécutera un set uniquement sur les valeurs qui ont changé.
+@DynamicUpdate
 @Table(name = "commentaire")
 public class Comment {
     @Id

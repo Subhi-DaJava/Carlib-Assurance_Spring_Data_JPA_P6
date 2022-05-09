@@ -133,7 +133,7 @@ public class DataLayerApplication implements CommandLineRunner {
 		newProductUnder30.setDescription("Assurance pour les moins de 30 ans");
 		newProductUnder30.setCost(600);
 		newCategoryUnder30.addProduct(newProductUnder30);
-		categoryService.addCategory(newCategoryUnder30);
+		categoryService.saveCategory(newCategoryUnder30);
 */
 		System.out.println("**************** Afficher la catégorie et le product pour ces new objets *********************");
 		/*newCategoryUnder30.getProducts().forEach(product -> System.out.println("Cette newCategoryUnder30 ["+newCategoryUnder30.getName()
@@ -212,6 +212,30 @@ public class DataLayerApplication implements CommandLineRunner {
 		commentId2.setContent("Minimum du minimum, un peu déçu");
 		Product productId1 = productService.getProductById(1).get();
 		productId1.addComment(commentId2);*/
+
+		System.out.println("************************* Créer un nouveau Product, Category et Comment en utilisant les méthodes utilitaires ***********************************");
+		/*Product newProductTest = new Product();
+		newProductTest.setName("AssuranceTest");
+		newProductTest.setDescription("Tester cette assurance pour créer la relation");
+		newProductTest.setCost(950);
+		Category newCategoryTest = new Category();
+		newCategoryTest.setName("CatégorieTest");
+		newCategoryTest.addProduct(newProductTest);
+
+		Comment newCommentTest = new Comment();
+		//je me suis trompé cette ligne ci-dessous, je vais les mettre à jour
+		newCategoryTest.setName("Ce commentaire sera supprimer dès après le test");
+		newProductTest.addComment(newCommentTest);
+
+		categoryService.addCategory(newCategoryTest);*/
+		//Mettre à jour le nom de la catégorie dont id = 15
+	/*	Category categoryId15Test = categoryService.getCategoryById(15).get();
+		categoryId15Test.setName("CatégorieTest");
+		categoryService.saveCategory(categoryId15Test);*/
+		//Mettre à jour le contenu du commentaire dont id = 8
+		/*Comment commentId8Test = commentService.getCommentById(8).get();
+		commentId8Test.setContent("Ce commentaire sera supprimer dès après le test");
+		commentService.saveComment(commentId8Test);*/
 
 
 
